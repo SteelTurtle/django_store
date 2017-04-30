@@ -5,8 +5,8 @@ class Product(models.Model):
     name = models.CharField(max_length=31, db_index=True)
     slug = models.SlugField(max_length=31, unique=True, help_text='A label identifying the product URL')
     description = models.TextField(blank=True, null=True)
-    categories = models.ManyToManyField(Category)
-    tags = models.ManyToManyField(Tag)
+    categories = models.ManyToManyField('Category')
+    tags = models.ManyToManyField('Tag')
 
     def __str__(self):
         return self.name
@@ -35,7 +35,7 @@ class Link(models.Model):
     title = models.CharField(max_length=63)
     publication_date = models.DateField(verbose_name='date published')
     link_url = models.URLField()
-    product = models.ForeignKey(Product)
+    product = models.ForeignKey('Product')
 
     def __str__(self):
         return self.title
