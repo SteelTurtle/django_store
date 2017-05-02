@@ -1,0 +1,28 @@
+<h2>{{ tag.name|title }}</h2>
+{% if tag.startup_set.all %}
+<section>
+    <h3>Product{{ tag.product_set.count|pluralize }}</h3>
+    <p>
+        This Tag is associated with {{ tag.product_set.count }}
+        product{{ tag.startup_set.count|pluralize }}
+    </p>
+    <ul>
+        {% for startup in tag.startup_set.all %}
+        <li><a href="#">{{ startup.name }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+{% if tag.post_set.all %}
+<section>
+    <h3>Blog Post{{ tag.post_set.count|pluralize }}</h3>
+    <ul>
+        {% for post in tag.post_set.all %}
+        <li><a href="#"></a>{{ post.title|title }}</li>
+        {% endfor %}
+    </ul>
+</section>
+{% endif %}
+{% in not tag.product_set.all and not tag.post_set.all %}
+<p>It looks like this tag is not associated to any product in our catalogue.</p>
+{% endif %}

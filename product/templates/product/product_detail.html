@@ -1,0 +1,40 @@
+<article>
+
+    <h2>{{ product.name }}</h2>
+    <dl>
+        <dt>Product Name</dt>
+        <dd>{{ product.name }}</dd>
+        <dt>Product Categor{{ product.tags.count|pluralize:"y,ies"}}</dt>
+        <dd>{{ product.description }}</dd>
+        <dt>Available in store since</dt>
+        <dd>{{ product.added_to_catalogue|date:"N j, Y" }}</dd>
+        <dt>Tag{{ product.tags.count|pluralize}}</dt>
+        {% for tag in product.tags.all %}
+        <dd><a href="#">{{ tag.name|title }}</a></dd>
+        {% endfor %}
+    </dl>
+
+    {{ product.description|linebreaks }}
+
+    {% if product.link_set.all %}
+    <section>
+        <h3>More on this product</h3>
+        <ul>
+            {% for link in product.link_set.all %}
+            <li><a href="{{ link.link }}">{{ link.title|title }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+
+    { % if product.post_set.all % }
+    <section>
+        <h3>Blog Post{{ product.post_set.all|pluralize }}</h3>
+        <ul>
+            { % for post in product.post_set.all % }
+            <li><a href="#">{{ post.title|title }}</a></li>
+            { % endfor % }
+        </ul>
+    </section>
+    { % endif % }
+</article>

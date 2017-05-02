@@ -1,0 +1,10 @@
+<h2>Product List</h2>
+<ul>
+    {% for product in product_list % }
+    <li>
+        <a href="#">{{ product.name }} </a>
+    </li>
+    { % empty % }
+    <li><em>No products available</em></li>
+    { % endfor % }
+</ul>
