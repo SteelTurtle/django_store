@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <title>
+        {% block title %}
         Django Store
+        {% endblock %}
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +19,9 @@
         <h1>Django Store</h1>
     </header>
     <main>
+        {% block content %}
         This is default content!
+        {% endblock %}
     </main>
 </div><!-- container -->
 
