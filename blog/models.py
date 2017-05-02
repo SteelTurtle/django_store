@@ -14,4 +14,9 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag)
 
     def __str__(self):
-        return self.title
+        return '{} published on {}'.format(self.title, self.publication_date.strftime('%d-%m-%Y'))
+
+    class Meta:
+        # order blog posts from oldest to newest AND title
+        ordering = ['-publication_date', 'title']
+        get_latest_by = 'publication_date'

@@ -5,11 +5,15 @@ class Product(models.Model):
     name = models.CharField(max_length=31, db_index=True)
     slug = models.SlugField(max_length=31, unique=True, help_text='A label identifying the product URL')
     description = models.TextField(blank=True, null=True)
+    added_to_catalogue = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField('Category')
     tags = models.ManyToManyField('Tag')
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        get_latest_by = 'added_to_catalogue'
 
 
 class Category(models.Model):
@@ -30,6 +34,10 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        # defaults ordering tags by name
+        ordering = ['name']
+
 
 class Link(models.Model):
     title = models.CharField(max_length=63)
@@ -38,4 +46,11 @@ class Link(models.Model):
     product = models.ForeignKey('Product')
 
     def __str__(self):
-        return self.title
+        return '{}:{}'.format(self.product, self.title)
+
+    class Meta:
+        # set a verbose name for the class
+        verbose_name = 'product link'
+        # order by publication date (oldest to newest)
+        ordering = ['-publication_date']
+        get_latest_by = 'publication_date'
