@@ -1,3 +1,10 @@
+{% extends parent_template|default:"product/base_product.html" %}
+
+{ % block title % }
+{{ block.super }} - {{ product.name|title }}
+{ % endblock title % }
+
+{% block content %}
 <article>
 
     <h2>{{ product.name }}</h2>
@@ -38,3 +45,4 @@
     </section>
     { % endif % }
 </article>
+{% endblock content %}

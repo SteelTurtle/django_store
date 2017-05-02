@@ -1,3 +1,10 @@
+{% extends parent_template|default:"product/base_product.html" %}
+
+{ % block title % }
+{{ block.super }} - Products
+{ % endblock title % }
+
+{% block content %}
 <h2>Product List</h2>
 <ul>
     {% for product in product_list % }
@@ -8,3 +15,4 @@
     <li><em>No products available</em></li>
     { % endfor % }
 </ul>
+{% endblock content %}
