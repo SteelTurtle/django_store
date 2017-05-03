@@ -1,18 +1,25 @@
-from django.http.response import HttpResponse
-from django.template import loader
+from django.shortcuts import get_object_or_404, render
 
-from .models import Tag
+from .models import Product, Tag
 
 
-def homepage(request):
-    tag_list = Tag.objects.all()
-    template = loader.get_template('product/tag_list.html')
-    output = template.render({'tag_list': tag_list})
-    return HttpResponse(output)
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug__iexact=slug)
+    template = 'product/product_detail.html'
+    return render(request, template, {'product': product})
+
+
+def product_list(request):
+    template = 'product/product_list.html'
+    return render(request, template, {'product_list': Product.objects.all()})
+
+
+def tag_list(request):
+    template = 'product/tag_list.html'
+    return render(request, template, {'tag_list': Tag.objects.all()})
 
 
 def tag_detail(request, slug):
-    tag = Tag.objects.get(slug__iexact=slug)
-    template = loader.get_template('product/tag_detail.html')
-    output = template.render({'tag': tag})
-    return HttpResponse(output)
+    tag = get_object_or_404(Tag, slug__iexact=slug)
+    template = 'product/tag_detail.html'
+    return render(request, template, {'tag': tag})
