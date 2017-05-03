@@ -4,6 +4,7 @@
 {{ block.super }} - {{ tag.name|title }}
 { % endblock title % }
 
+{% block content %}
 <h2>{{ tag.name|title }}</h2>
 {% if tag.startup_set.all %}
 <section>
@@ -29,6 +30,8 @@
     </ul>
 </section>
 {% endif %}
-{% in not tag.product_set.all and not tag.post_set.all %}
+{% if not tag.product_set.all and not tag.post_set.all %}
 <p>It looks like this tag is not associated to any product in our catalogue.</p>
 {% endif %}
+
+{% endblock content %}

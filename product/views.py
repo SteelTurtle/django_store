@@ -11,5 +11,8 @@ def homepage(request):
     return HttpResponse(output)
 
 
-def tag_detail(request):
-    pass
+def tag_detail(request, slug):
+    tag = Tag.objects.get(slug__iexact=slug)
+    template = loader.get_template('product/tag_detail.html')
+    output = template.render({'tag': tag})
+    return HttpResponse(output)
