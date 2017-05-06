@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.db import models
 
 from product.models import Product, Tag
@@ -12,6 +13,11 @@ class Post(models.Model):
     publication_date = models.DateField(verbose_name='date published', auto_now_add=True)
     products = models.ManyToManyField(Product)
     tags = models.ManyToManyField(Tag)
+
+    def get_absolute_url(self):
+        return reverse('blog_post_detail', kwargs={'year': self.publication_date.year,
+                                                   'month': self.publication_date.month,
+                                                   'slug': self.slug})
 
     def __str__(self):
         return '{} published on {}'.format(self.title, self.publication_date.strftime('%d-%m-%Y'))

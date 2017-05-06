@@ -18,6 +18,19 @@
     <header>
         <h1>Django Store</h1>
     </header>
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'blog_post_list' %}">
+                    Product Announcements and User Reviews</a></li>
+            <li>
+                <a href="{% url 'product_product_list' %}">
+                    Products</a></li>
+            <li>
+                <a href="{% url 'product_tag_list' %}">
+                    Tags</a></li>
+        </ul>
+    </nav>
     <main>
         {% block content %}
         This is default content!

@@ -1,3 +1,5 @@
+from django.core.urlresolvers import reverse
+
 from django.db import models
 
 
@@ -8,6 +10,9 @@ class Product(models.Model):
     added_to_catalogue = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField('Category')
     tags = models.ManyToManyField('Tag')
+
+    def get_absolute_url(self):
+        return reverse('product_product_detail', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.name
@@ -23,6 +28,9 @@ class Category(models.Model):
     is_active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
 
+    def get_absolute_url(self):
+        return reverse('product_category_detail', kwargs={'slug': self.slug})
+
     def __str__(self):
         return self.title
 
@@ -30,6 +38,9 @@ class Category(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=31, unique=True)
     slug = models.SlugField(max_length=31, unique=True, help_text='A label identifying the tag URL')
+
+    def get_absolute_url(self):
+        return reverse('product_tag_detail', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.name
