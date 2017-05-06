@@ -1,0 +1,13 @@
+{% extends parent_template|default:"product/base_product.html" %}
+
+{% block title %}
+{{ block.super }} - Create a new tag
+{% endblock title %}
+
+{% block content %}
+<form action="{% url 'product_tag_create' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create a Tag</button>
+</form>
+{% endblock content %}
