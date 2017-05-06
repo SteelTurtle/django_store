@@ -1,0 +1,18 @@
+{% extends parent_template|default:"product/base_product.html" %}
+
+{% block title %}
+{{ block.super }} - Delete a Product in the catalogue
+{% endblock title %}
+
+{% block content %}
+<div>
+    <div>
+        <form action="{% product.get_delete_url %}" method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete the product "{{ product.name }} from the catalogue?"</p>
+            <a href="{{ tag.get_absolute_url }}">Cancel</a>
+            <button type="submit">Delete this Product!</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

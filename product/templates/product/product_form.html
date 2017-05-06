@@ -1,16 +1,16 @@
 {% extends parent_template|default:"product/base_product.html" %}
 
 {% block title %}
-{{ block.super }} - Create a new tag
+{{ block.super }} - Add a new Product in the catalogue
 {% endblock title %}
 
 {% block content %}
 <div>
     <div>
-        <form action="{% url 'product_tag_create' %}" method="post">
+        <form action="{% url 'product_product_create' %}" method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Create a Tag</button>
+            <button type="submit">Add a new product</button>
         </form>
     </div>
 </div>

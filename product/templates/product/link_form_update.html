@@ -1,0 +1,20 @@
+{ % extends parent _ template|default:"organizer/base _ organizer.html" % }
+
+{ % block title % }
+{{ block.super }} - Update Link
+{ % endblock % }
+{ % block content % }
+<div>
+    <div>
+        <form
+                action=" {{ link.get _ update _ url }} "
+                method="post">
+            { % csrf _ token % }
+            {{ form.as _ p }}
+            <button type="submit">
+                Update Link
+            </button>
+        </form>
+    </div>
+</div>
+{ % endblock % }

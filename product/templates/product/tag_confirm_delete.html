@@ -1,0 +1,18 @@
+{% extends parent_template|default:"product/base_product.html" %}
+
+{% block title %}
+{{ block.super }} - Delete Tag
+{% endblock title %}
+
+{% block content %}
+<div>
+    <div>
+        <form action="{{ tag.get_delete_url }}" method="post">
+            {% csrf_token %}
+            <p>Are you sure you want to delete the tag "{{ tag.name }}"?</p>
+            <a href="{{ tag.get_absolute_url }}">Cancel</a>
+            <button type="submit">Delete this Tag!</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
