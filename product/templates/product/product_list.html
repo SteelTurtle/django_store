@@ -6,6 +6,10 @@
 
 {% block content %}
 <h2>Product List</h2>
+<div>
+    <a href=" { % url 'product_product_create' % } ">
+        Add a new product in the catalogue</a>
+</div>
 <ul>
     {% for product in product_list % }
     <li>

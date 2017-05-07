@@ -5,6 +5,10 @@
 {% endblock title %}
 
 {% block content %}
+<div>
+    <a href="{% url 'blog_post_create' %}">
+        Write a Post on some product</a>
+</div>
 {% for post in post_list %}
 <article>
     <header>
@@ -14,8 +18,7 @@
         </h2>
         <p>
             Written on:
-            <time datetime="{{ post.pub_date|date:" d-m-Y
-            " }}">
+            <time datetime="{{ post.pub_date|date:'d-m-Y' }}">
             {{ post.publication_date|date:"l, F j, Y" }}
             </time>
         </p>

@@ -56,6 +56,11 @@ class Link(models.Model):
     link_url = models.URLField()
     product = models.ForeignKey('Product')
 
+    # notice the get_absolute_url() here just calls the equivalent method of the product
+    # referred by its link(s)
+    def get_absolute_url(self):
+        return self.product.get_absolute_url()
+
     def __str__(self):
         return '{}:{}'.format(self.product, self.title)
 

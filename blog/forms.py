@@ -6,7 +6,7 @@ from .models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = 'all'
+        fields = '__all__'
 
     # uniqueness of each post is guaranteed by the publication year + month + its slug
     # So, no need to check specific uniqueness of the slug

@@ -26,6 +26,10 @@
     {% if product.link_set.all %}
     <section>
         <h3>More on this product</h3>
+        <p>
+            <a href="{% url 'product_link_create' %}">
+                Add a new link for the product</a>
+        </p>
         <ul>
             {% for link in product.link_set.all %}
             <li><a href="{{ link.link }}">{{ link.title|title }}</a></li>
