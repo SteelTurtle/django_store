@@ -43,6 +43,10 @@ class LinkUpdate(View):
             return render(request, self.template_name, context)
 
 
+class LinkDelete(View):
+    pass
+
+
 class ProductCreate(View):
     form_class = ProductForm
     template_name = 'product/product_form.html'
@@ -69,6 +73,10 @@ def product_detail(request, slug):
     product = get_object_or_404(Product, slug__iexact=slug)
     template = 'product/product_detail.html'
     return render(request, template, {'product': product})
+
+
+class ProductDelete(View):
+    pass
 
 
 def product_list(request):
@@ -101,6 +109,10 @@ class TagCreate(View):
         # posted bound_form data are invalid
         else:
             return render(request, self.template_name, {'form': bound_form})
+
+
+class TagDelete(View):
+    pass
 
 
 def tag_detail(request, slug):

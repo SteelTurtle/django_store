@@ -14,6 +14,12 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_product_detail', kwargs={'slug': self.slug})
 
+    def get_update_url(self):
+        return reverse('product_product_update', kwargs={'slug': self.slug})
+
+    def get_delete_url(self):
+        return reverse('product_product_update', kwargs={'slug': self.slug})
+
     def __str__(self):
         return self.name
 
@@ -45,6 +51,9 @@ class Tag(models.Model):
     def get_update_url(self):
         return reverse('product_tag_update', kwargs={'slug': self.slug})
 
+    def get_delete_url(self):
+        return reverse('product_tag_delete', kwargs={'slug': self.slug})
+
     def __str__(self):
         return self.name
 
@@ -68,6 +77,9 @@ class Link(models.Model):
     # database
     def get_update_url(self):
         return reverse('product_link_update', kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('product_link_delete', kwargs={'pk': self.pk})
 
     def __str__(self):
         return '{}:{}'.format(self.product, self.title)

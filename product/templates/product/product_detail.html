@@ -8,6 +8,11 @@
 <article>
 
     <h2>{{ product.name }}</h2>
+    <ul>
+        <li>
+            <a href=" {{ product.get _ update _ url }} ">
+                Edit Product</a></li>
+    </ul>
     <dl>
         <dt>Product Name</dt>
         <dd>{{ product.name }}</dd>
@@ -36,7 +41,12 @@
             <ul>
                 <li>
                     <a href="{{ link.get_update_url }}">
-                        Edit Link</a></li>
+                        Edit Link</a>
+                </li>
+                <li>
+                    <a href="{{ link.get_delete_url }}">
+                        Delete Link</a>
+                </li>
             </ul>
             {% endfor %}
         </ul>

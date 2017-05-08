@@ -40,6 +40,22 @@ class PostCreate(View):
             return render(request, self.template_name, {'form': bound_form})
 
 
+class PostDelete(View):
+    def get(self, request, year, month, slug):
+        post = get_object_or_404(Post,
+                                 publication_date__year=year,
+                                 publication_date__month=month,
+                                 slug__iexact=slug)
+        return render(request, 'blog/post_confirm_delete.html', {'post': post})
+
+    def post(self, request, year, month, slug):
+        post = get_object_or_404(Post,
+                                 publication_date__year=year,
+                                 publication_date__month=month,
+                                 slug__iexact=slug)
+        post.delete()
+        return redirect('blog_post_list')
+
 class PostUpdate(View):
     form_class = PostForm
     model = Post
