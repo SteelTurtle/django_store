@@ -8,6 +8,11 @@
 <article>
     <header>
         <h2>{{ post.title|title }}</h2>
+        <ul>
+            <li>
+                <a href="{{ post.get_update_url }}">Edit Post</a>
+            </li>
+        </ul>
         <p>Written on
             <time datetime="{{ post.publication_date|date:'d-m-Y' }}">
             {{ post.publication_date|date:"l, F j, Y" }}

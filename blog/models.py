@@ -14,8 +14,15 @@ class Post(models.Model):
     products = models.ManyToManyField(Product)
     tags = models.ManyToManyField(Tag)
 
+    # get reversed url for links to the "details" page
     def get_absolute_url(self):
         return reverse('blog_post_detail', kwargs={'year': self.publication_date.year,
+                                                   'month': self.publication_date.month,
+                                                   'slug': self.slug})
+
+    # get reversed url for links to the "update" page
+    def get_update_url(self):
+        return reverse('blog_post_update', kwargs={'year': self.publication_date.year,
                                                    'month': self.publication_date.month,
                                                    'slug': self.slug})
 

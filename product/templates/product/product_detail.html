@@ -33,6 +33,11 @@
         <ul>
             {% for link in product.link_set.all %}
             <li><a href="{{ link.link }}">{{ link.title|title }}</a></li>
+            <ul>
+                <li>
+                    <a href="{{ link.get_update_url }}">
+                        Edit Link</a></li>
+            </ul>
             {% endfor %}
         </ul>
     </section>

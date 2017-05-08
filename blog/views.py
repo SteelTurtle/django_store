@@ -38,3 +38,36 @@ class PostCreate(View):
         # posted bound_form data are invalid
         else:
             return render(request, self.template_name, {'form': bound_form})
+
+
+class PostUpdate(View):
+    form_class = PostForm
+    model = Post
+    template_name = 'blog/post_form_update.html'
+
+    def get(self, request, year, month, slug):
+        # check if the object we are looking for does exist;
+        # if not, get http 404
+        post = get_object_or_404(self.model,
+                                 publication_date__year=year,
+                                 publication_date__month=month,
+                                 slug__iexact=slug)
+        context = {'form': self.form_class(instance=post),
+                   'post': post}
+        return render(request, self.template_name, context)
+
+    def post(self, request, year, month, slug):
+        # same as GET: before we try to update let's check
+        # this object does actually exist
+        post = get_object_or_404(self.model,
+                                 publication_date__year=year,
+                                 publication_date__month=month,
+                                 slug__iexact=slug)
+        bound_form = self.form_class(request.POST, instance=post)
+        if bound_form.is_valid():
+            new_post = bound_form.save()
+            return redirect(new_post)
+        else:
+            context = {'form': bound_form,
+                       'post': post}
+            return render(request, self.template_name, context)

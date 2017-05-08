@@ -42,6 +42,9 @@ class Tag(models.Model):
     def get_absolute_url(self):
         return reverse('product_tag_detail', kwargs={'slug': self.slug})
 
+    def get_update_url(self):
+        return reverse('product_tag_update', kwargs={'slug': self.slug})
+
     def __str__(self):
         return self.name
 
@@ -60,6 +63,11 @@ class Link(models.Model):
     # referred by its link(s)
     def get_absolute_url(self):
         return self.product.get_absolute_url()
+
+    # notice the reversed update url for each link is identified unequivocally by its id on the
+    # database
+    def get_update_url(self):
+        return reverse('product_link_update', kwargs={'pk': self.pk})
 
     def __str__(self):
         return '{}:{}'.format(self.product, self.title)

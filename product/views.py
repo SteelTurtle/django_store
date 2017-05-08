@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
 from .forms import LinkForm, ProductForm, TagForm
-from .models import Product, Tag
+from .models import Link, Product, Tag
 
 
 class LinkCreate(View):
@@ -19,6 +19,28 @@ class LinkCreate(View):
             return redirect(new_link)
         else:
             return render(request, self.template_name, {'form': bound_form})
+
+
+class LinkUpdate(View):
+    form_class = LinkForm
+    template_name = 'product/link_form_update.html'
+
+    def get(self, request, pk):
+        link = get_object_or_404(Link, pk=pk)
+        context = {'form': self.form_class(instance=link),
+                   'link': link}
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        link = get_object_or_404(Link, pk=pk)
+        bound_form = self.form_class(request.POST, instance=link)
+        if bound_form.is_valid():
+            new_link = bound_form.save()
+            return redirect(new_link)
+        else:
+            context = {'form': bound_form,
+                       'link': link}
+            return render(request, self.template_name, context)
 
 
 class ProductCreate(View):
@@ -54,6 +76,10 @@ def product_list(request):
     return render(request, template, {'product_list': Product.objects.all()})
 
 
+class ProductUpdate(View):
+    pass
+
+
 # A CBV implicitly returns HTTP code 405 if none of the GET or POST request methods are matched
 class TagCreate(View):
     form_class = TagForm
@@ -77,13 +103,16 @@ class TagCreate(View):
             return render(request, self.template_name, {'form': bound_form})
 
 
-def tag_list(request):
-    template = 'product/tag_list.html'
-    return render(request, template, {'tag_list': Tag.objects.all()})
-
-
 def tag_detail(request, slug):
     tag = get_object_or_404(Tag, slug__iexact=slug)
     template = 'product/tag_detail.html'
     return render(request, template, {'tag': tag})
 
+
+def tag_list(request):
+    template = 'product/tag_list.html'
+    return render(request, template, {'tag_list': Tag.objects.all()})
+
+
+class TagUpdate(View):
+    pass
