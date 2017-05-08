@@ -24,7 +24,7 @@ class PostCreate(View):
 
     # GET
     def get(self, request):
-        return render(self.template_name, {'form': self.form_class()})
+        return render(request, self.template_name, {'form': self.form_class()})
 
     # POST
     def post(self, request):
