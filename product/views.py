@@ -34,16 +34,11 @@ class LinkUpdate(View):
             return render(request, self.template_name, context)
 
 
-class LinkDelete(View):
-    def get(self, request, pk):
-        link = get_object_or_404(Link, pk=pk)
-        return render(request, 'product/link_confirm_delete.html', {'link': link})
-
-    def post(self, request, pk):
-        link = get_object_or_404(Link, pk=pk)
-        product = link.product
-        link.delete()
-        return redirect(product)
+class LinkDelete(DeleteView):
+    # The get_success_url() method is called before the NewsLink instance is deleted
+    # from the database
+    def get_success_url(self):
+        return self.object.product.get_absolute_url()
 
 
 class ProductCreate(CreateView):
