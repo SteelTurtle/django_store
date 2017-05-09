@@ -54,7 +54,7 @@ class ProductCreate(View):
 
     # GET
     def get(self, request):
-        return render(self.template_name, {'form': self.form_class()})
+        return render(request, self.template_name, {'form': self.form_class()})
 
     # POST
     def post(self, request):
@@ -108,14 +108,17 @@ class ProductList(View):
             previous_url = None
         if page.has_next():
             next_url = '?{pkw}={n}'.format(pkw=self.page_kwargs, n=page.next_page_number())
+        else:
+            next_url = None
 
         # let's inject additional paginator data to the context,
         # so we can have less calls on the template
-        context = {'is_paginated': page.has_other_pages(),
-                   'next_page_url': next_url,
+        context = {'product_list': page,
                    'paginator': paginator,
+                   'is_paginated': page.has_other_pages(),
+                   'next_page_url': next_url,
                    'previous_page_url': previous_url,
-                   'product_list': page}
+                   }
         return render(request, self.template_name, context)
 
 
@@ -130,7 +133,7 @@ class TagCreate(View):
 
     # GET
     def get(self, request):
-        return render(self.template_name, {'form': self.form_class()})
+        return render(request, self.template_name, {'form': self.form_class()})
 
     # POST
     def post(self, request):

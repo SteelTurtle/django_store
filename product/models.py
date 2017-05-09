@@ -8,7 +8,6 @@ class Product(models.Model):
     slug = models.SlugField(max_length=31, unique=True, help_text='A label identifying the product URL')
     description = models.TextField(blank=True, null=True)
     added_to_catalogue = models.DateTimeField(auto_now_add=True)
-    categories = models.ManyToManyField('Category')
     tags = models.ManyToManyField('Tag')
 
     def get_absolute_url(self):
@@ -25,20 +24,6 @@ class Product(models.Model):
 
     class Meta:
         get_latest_by = 'added_to_catalogue'
-
-
-class Category(models.Model):
-    title = models.CharField(max_length=127)
-    slug = models.SlugField(max_length=31, unique=True, help_text='A label identifying the category URL')
-    description = models.TextField(blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
-
-    def get_absolute_url(self):
-        return reverse('product_category_detail', kwargs={'slug': self.slug})
-
-    def __str__(self):
-        return self.title
 
 
 class Tag(models.Model):

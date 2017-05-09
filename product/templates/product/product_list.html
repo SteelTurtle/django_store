@@ -4,22 +4,31 @@
 {{ block.super }} - Products
 { % endblock title % }
 
-{% block content %}
+{% block create_button %}
+<a
+        href="{% url 'product_product_create' %}"
+        class="button button-primary">
+    Add a new Product</a>
+{% endblock %}
+
+{% block org_content %}
 <h2>Product List</h2>
-<div>
+<div class="mobile">
     <a href=" { % url 'product_product_create' % } ">
         Add a new product in the catalogue</a>
 </div>
 <ul>
-    {% for product in product_list % }
+    {% for product in product_list %}
     <li>
         <a href="{{ product.get_absolute_url }}">{{ product.name }} </a>
     </li>
-    { % empty % }
+    {% empty %}
     <li><em>No products available</em></li>
-    { % endfor % }
+    {% endfor %}
 </ul>
+{% endblock org_content %}
 
+{% block content_footer %}
 {% if is_paginated %}
 <ul>
     {% if previous_page_url %}
@@ -40,4 +49,4 @@
     {% endif %}
 </ul>
 {% endif %}
-{% endblock content %}
+{% endblock content_footer %}

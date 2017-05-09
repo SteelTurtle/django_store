@@ -10,7 +10,7 @@
     <h2>{{ product.name }}</h2>
     <ul>
         <li>
-            <a href=" {{ product.get _ update _ url }} ">
+            <a href=" {{ product.get_update_url }} ">
                 Edit Product</a></li>
     </ul>
     <dl>
@@ -53,15 +53,15 @@
     </section>
     {% endif %}
 
-    { % if product.post_set.all % }
+    {% if product.post_set.all %}
     <section>
         <h3>Blog Post{{ product.post_set.all|pluralize }}</h3>
         <ul>
-            { % for post in product.post_set.all % }
+            {% for post in product.post_set.all %}
             <li><a href="#">{{ post.title|title }}</a></li>
-            { % endfor % }
+            {% endfor %}
         </ul>
     </section>
-    { % endif % }
+    {% endif %}
 </article>
 {% endblock content %}
