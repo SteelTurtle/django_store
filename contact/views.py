@@ -7,7 +7,7 @@ from .forms import ContactForm
 
 class ContactView(View):
     form_class = ContactForm
-    template_name = 'contact/base_contact.html'
+    template_name = 'contact/contact_form.html'
 
     def get(self, request):
         return render(request, self.template_name, {'form': self.form_class()})

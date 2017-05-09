@@ -1,10 +1,10 @@
-{% extends parent_template|default:"base_contact.html" %}
+{% extends parent_template|default:"base.html" %}
 
 { % block title % }
 {{ block.super }} - Contact Us!
 { % endblock title% }
 
-{ % block content % }
+{% block content %}
 <div>
     <div>
         <form action="{% url 'contact' %}" method="post">
@@ -16,4 +16,4 @@
         </form>
     </div>
 </div>
-{ % endblock content% }
+{% endblock content%}

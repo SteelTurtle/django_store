@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,13 +12,22 @@
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/skeleton.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'css/style.css' %}">
 </head>
 
 <body>
 
-<div><!-- container -->
-    <header>
-        <h1>Django Store</h1>
+<div class="container"><!-- container -->
+    <header class="row">
+        <div class="offset-by-one ten columns">
+            <h1>Django Store</h1>
+        </div>
     </header>
     <nav>
         <ul>
@@ -32,9 +43,9 @@
         </ul>
     </nav>
     {% if messages %}
-    <div>
-        <div>
-            <ul>
+    <div class="row">
+        <div class="twelwe columns">
+            <ul class="messages">
                 {% for message in messages %}
                 {% if message.tags %}
                 <li class="{{ message.tags }}">
