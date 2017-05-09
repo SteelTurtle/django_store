@@ -31,6 +31,23 @@
                     Tags</a></li>
         </ul>
     </nav>
+    {% if messages %}
+    <div>
+        <div>
+            <ul>
+                {% for message in messages %}
+                {% if message.tags %}
+                <li class="{{ message.tags }}">
+                    {% else %}
+                <li>
+                    {% endif %}
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
     <main>
         {% block content %}
         This is default content!

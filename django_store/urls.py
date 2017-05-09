@@ -17,10 +17,12 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from blog import urls as blog_urls
+from contact import urls as contact_urls
 from product import urls as product_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(product_urls)),
     url(r'^blog/', include(blog_urls)),
+    url(r'^contact/', include(contact_urls)),
 ]

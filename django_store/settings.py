@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'blog',
+    'contact',
     'product',
 ]
 
@@ -155,3 +156,14 @@ LOGGING = {
         },
     },
 }
+
+# Email
+# https://docs.djangoproject.com/en/1.10/topics/email/
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SERVER_EMAIL = 'contact@djangocart.org'
+DEFAULT_FROM_EMAIL = 'no-reply@djangocart.org'
+EMAIL_SUBJECT_PREFIX = '[Django-Cart Info] '
+MANAGERS = (
+    ('Us', 'administrator@djangocart.org'),
+)
