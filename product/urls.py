@@ -1,24 +1,13 @@
 from django.conf.urls import url
 
-from .views import (LinkCreate,
-                    LinkDelete,
-                    LinkUpdate,
-                    ProductCreate,
-                    ProductDelete,
-                    ProductUpdate,
-                    TagCreate,
-                    TagDelete,
-                    TagUpdate,
-                    product_detail,
-                    product_list,
-                    tag_detail,
-                    tag_list)
+from .views import LinkCreate, LinkDelete, LinkUpdate, ProductCreate, ProductDelete, ProductList, ProductUpdate, \
+    TagCreate, TagDelete, TagUpdate, product_detail, tag_detail, tag_list
 
 urlpatterns = [
     url(r'^link/create/$', LinkCreate.as_view(), name='product_link_create'),
     url(r'^link/update/(?P<pk>\d+)/$', LinkUpdate.as_view(), name='product_link_update'),
     url(r'^link/delete/(?P<pk>\d+)/$', LinkDelete.as_view(), name='product_link_delete'),
-    url(r'^product/$', product_list, name='product_product_list'),
+    url(r'^product/$', ProductList.as_view(), name='product_product_list'),
     url(r'^product/create/$', ProductCreate.as_view(), name='product_product_create'),
     url(r'^product/(?P<slug>[\w\-]+)/$', product_detail, name='product_product_detail'),
     url(r'^product/(?P<slug>[\w\-]+)/delete/$', ProductDelete.as_view(), name='product_product_delete'),

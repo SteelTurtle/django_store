@@ -1,3 +1,4 @@
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
@@ -79,9 +80,43 @@ class ProductDelete(View):
     pass
 
 
-def product_list(request):
-    template = 'product/product_list.html'
-    return render(request, template, {'product_list': Product.objects.all()})
+class ProductList(View):
+    page_kwargs = 'page'
+    objects_per_page = 5
+    template_name = 'product/product_list.html'
+
+    def get(self, request):
+        product_list = Product.objects.all()
+        # let's paginate the list!
+        paginator = Paginator(product_list, self.objects_per_page)
+        # check which page to move to next:
+        # extract the value of 'page' from the current http request context
+        # resulted from a GET request, and pass the obtained page number to the caller
+        page_number = request.GET.get(self.page_kwargs)
+        # of course we need to account for situations like empty or
+        # non conventional 'page' values passed by the user
+        try:
+            page = paginator.page(page_number)
+        except PageNotAnInteger:
+            page = paginator.page(1)
+        except EmptyPage:
+            page = paginator.page(paginator.num_pages)
+        # Also, we account for situations where the '?page=something' is not specified in the url
+        if page.has_previous():
+            previous_url = '?{pkw}={n}'.format(pkw=self.page_kwargs, n=page.previous_page_number())
+        else:
+            previous_url = None
+        if page.has_next():
+            next_url = '?{pkw}={n}'.format(pkw=self.page_kwargs, n=page.next_page_number())
+
+        # let's inject additional paginator data to the context,
+        # so we can have less calls on the template
+        context = {'is_paginated': page.has_other_pages(),
+                   'next_page_url': next_url,
+                   'paginator': paginator,
+                   'previous_page_url': previous_url,
+                   'product_list': page}
+        return render(request, self.template_name, context)
 
 
 class ProductUpdate(View):
