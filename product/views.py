@@ -36,7 +36,13 @@ class LinkUpdate(View):
 
 class LinkDelete(DeleteView):
     # The get_success_url() method is called before the NewsLink instance is deleted
-    # from the database
+    # from the database.
+    # In StartupDelete and TagDelete , we were able to set the success url attribute
+    # using reverse_lazy() because we simply wanted to redirect to a list page. When deleting
+    # Link objects, we want to redirect to the page the user was just on: the detail page of
+    # the Startup that the Link was associated with. This page cannot be set by an
+    # attribute because it changes from instance to instance. Instead, we can override the
+    # get_success_url() method,
     def get_success_url(self):
         return self.object.product.get_absolute_url()
 

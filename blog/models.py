@@ -31,6 +31,13 @@ class Post(models.Model):
                                                    'month': self.publication_date.month,
                                                    'slug': self.slug})
 
+    def get_archive_year_month(self):
+        return reverse('blog_post_archive_year', kwargs={'year': self.publication_date.year,
+                                                         'month': self.publication_date.month})
+
+    def get_archive_year_url(self):
+        return reverse('blog_post_archive_year', kwargs={'year': self.publication_date.year})
+
     def __str__(self):
         return '{} published on {}'.format(self.title, self.publication_date.strftime('%d-%m-%Y'))
 

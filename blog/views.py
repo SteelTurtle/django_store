@@ -1,8 +1,20 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import CreateView, ListView, View
+from django.views.generic import CreateView, ListView, MonthArchiveView, View, YearArchiveView
 
 from .forms import PostForm
 from .models import Post
+
+
+class PostArchiveYear(YearArchiveView):
+    model = Post
+    date_field = 'publication_date'
+    make_object_list = True
+
+
+class PostArchiveMonth(MonthArchiveView):
+    model = Post
+    date_field = 'publication_date'
+    month_format = '%m'
 
 
 def post_detail(request, year, month, slug):
@@ -37,6 +49,7 @@ class PostDelete(View):
                                  slug__iexact=slug)
         post.delete()
         return redirect('blog_post_list')
+
 
 class PostUpdate(View):
     form_class = PostForm

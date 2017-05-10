@@ -5,13 +5,18 @@
 {% endblock title %}
 
 {% block content %}
-<div>
-    <div>
-        <form action="{% tag.get_update_url %}" method="post">
+<div class="row">
+    <div class="offset-by-two eight columns">
+        <form action="{{ tag.get_update_url }}"
+              method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Update Tag</button>
+            <button
+                    class="button-primary"
+                    type="submit">
+                Update Tag
+            </button>
         </form>
     </div>
 </div>
-{% endblock content %}
+{% endblock %}
