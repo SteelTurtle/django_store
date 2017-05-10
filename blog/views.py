@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import CreateView, ListView, MonthArchiveView, View, YearArchiveView
+from django.views.decorators.http import require_http_methods
+from django.views.generic import ArchiveIndexView, CreateView, MonthArchiveView, View, YearArchiveView
 
 from .forms import PostForm
 from .models import Post
@@ -17,16 +18,28 @@ class PostArchiveMonth(MonthArchiveView):
     month_format = '%m'
 
 
+@require_http_methods(['HEAD', 'GET'])
 def post_detail(request, year, month, slug):
-    post = get_object_or_404(Post.objects
-                             .filter(publication_date__year=year)
-                             .filter(publication_date__month=month)
-                             .get(slug__iexact=slug))
-    return render(request, 'blog/post_detail.html', {'post': post})
+    post = get_object_or_404(
+        Post,
+        publication_date__year=year,
+        publication_date__month=month,
+        slug=slug)
+    return render(
+        request,
+        'blog/post_detail.html',
+        {'post': post})
 
 
-class PostList(ListView):
+class PostList(ArchiveIndexView):
+    allow_empty = True
+    allow_future = True
+    context_object_name = 'post_list'
+    date_field = 'publication_date'
+    make_object_list = True
     model = Post
+    paginate_by = 5
+    template_name = 'blog/post_list.html'
 
 
 class PostCreate(CreateView):

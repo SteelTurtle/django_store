@@ -22,9 +22,9 @@ from contact import urls as contact_urls
 from product import urls as product_urls
 
 urlpatterns = [
+    url(r'^$', RedirectView.as_view(pattern_name='blog_post_list')),
     url(r'^about/$', TemplateView.as_view(template_name='global/about.html'), name='about_site'),
     url(r'^admin/', admin.site.urls),
-    url(r'^$', RedirectView.as_view(pattern_name='blog_post_list')),
     url(r'^blog/', include(blog_urls)),
     url(r'^contact/', include(contact_urls)),
     url(r'^', include(product_urls)),
