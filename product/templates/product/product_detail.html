@@ -58,7 +58,7 @@
         <h3>Blog Post{{ product.post_set.all|pluralize }}</h3>
         <ul>
             {% for post in product.post_set.all %}
-            <li><a href="#">{{ post.title|title }}</a></li>
+            <li><a href="{{ post.get_absolute_url }}">{{ post.title|title }}</a></li>
             {% endfor %}
         </ul>
     </section>

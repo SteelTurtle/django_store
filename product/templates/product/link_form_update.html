@@ -1,4 +1,4 @@
-{ % extends parent _ template|default:"organizer/base _ organizer.html" % }
+{% extends parent_template|default:"product/base_product.html" %}
 
 { % block title % }
 {{ block.super }} - Update Link
@@ -7,10 +7,10 @@
 <div>
     <div>
         <form
-                action=" {{ link.get _ update _ url }} "
+                action="{{ link.get_update_url }}"
                 method="post">
-            { % csrf _ token % }
-            {{ form.as _ p }}
+            {% csrf_token %}
+            {{ form.as_p }}
             <button type="submit">
                 Update Link
             </button>

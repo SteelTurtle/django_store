@@ -1,6 +1,5 @@
 from django.core.urlresolvers import reverse_lazy
-from django.shortcuts import get_object_or_404, render
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from .forms import LinkForm, ProductForm, TagForm
 from .models import Link, Product, Tag
@@ -36,10 +35,8 @@ class ProductCreate(CreateView):
     template_name = 'product/product_form.html'
 
 
-def product_detail(request, slug):
-    product = get_object_or_404(Product, slug__iexact=slug)
-    template = 'product/product_detail.html'
-    return render(request, template, {'product': product})
+class ProductDetail(DetailView):
+    model = Product
 
 
 class ProductDelete(DeleteView):
@@ -69,15 +66,13 @@ class TagDelete(DeleteView):
     success_url = reverse_lazy('product_tag_list')
 
 
-def tag_detail(request, slug):
-    tag = get_object_or_404(Tag, slug__iexact=slug)
-    template = 'product/tag_detail.html'
-    return render(request, template, {'tag': tag})
+class TagDetail(DetailView):
+    model = Tag
 
 
-def tag_list(request):
-    template = 'product/tag_list.html'
-    return render(request, template, {'tag_list': Tag.objects.all()})
+class TagList(PageLinksMixin, ListView):
+    paginate_by = 5
+    model = Tag
 
 
 class TagUpdate(UpdateView):
