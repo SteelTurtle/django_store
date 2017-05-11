@@ -1,0 +1,20 @@
+{% extends parent_template|default:"account/base_account.html" %}
+
+{% block title %}
+{{ block.super }} - Confirm User Deletion
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="offset-by-two eight columns">
+        <p>Are you really sure you want to delete your user account?</p>
+        <p>This action cannot be undone.</p>
+        <form action="{% urls 'dj-auth:disable' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">
+                Disable User Account
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account',
     'blog',
+    'core',
     'contact',
     'product',
 ]
@@ -168,3 +169,11 @@ EMAIL_SUBJECT_PREFIX = '[Django-Cart Info] '
 MANAGERS = (
     ('Us', 'administrator@djangocart.org'),
 )
+
+# Login Settings
+# https://docs.djangoproject.com/en/1.8/topics/auth/
+from django.core.urlresolvers import reverse_lazy
+
+LOGIN_REDIRECT_URL = reverse_lazy('dj-auth:login')
+LOGIN_URL = reverse_lazy('dj-auth:login')
+LOGOUT_URL = reverse_lazy('dj-auth:logout')
